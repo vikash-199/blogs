@@ -1,33 +1,33 @@
 apiVersion: apps/v1 # This says we are creating a Deployment using Kubernetes API version "apps/v1"
 kind: Deployment # The type of object we want to create is a Deployment
 metadata:
-  name: posts-depl # The name of this Deployment will be "posts-depl"
+  name: comments-depl # The name of this Deployment will be "posts-depl"
 
 spec:
   replicas: 1 # Run 1 copy (pod) of this application
   selector:
     matchLabels:
-      app: posts # This Deployment will look for pods with the label "app: posts"
+      app: comments # This Deployment will look for pods with the label "app: posts"
 
   template: # Define how the pods should look
     metadata:
       labels:
-        app: posts # Every pod created will have the label "app: posts"
+        app: comments # Every pod created will have the label "app: posts"
 
     spec:
       containers: # List of containers inside each pod
-        - name: posts # Name of the container is "posts"
-          image: vikash199/posts # Use the container image "vikash/posts:0.0.1"
+        - name: comments # Name of the container is "posts"
+          image: vikash199/comments # Use the container image "vikash/posts:0.0.1"
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: posts-clusterip-srv
+  name: comments-srv
 spec:
   selector:
-    app: posts
+    app: comments
   ports:
-    - name: posts
+    - name: comments
       protocol: TCP
-      port: 4000
-      targetPort: 4000
+      port: 4001
+      targetPort: 4001
